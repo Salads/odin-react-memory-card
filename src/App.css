@@ -1,3 +1,16 @@
+@font-face {
+	font-family: 'Deadlock';
+	src: url(assets/ValveOccult-SemiBold.woff2);
+}
+
+:root {
+	font-family: 'Deadlock';
+
+	background-image: url(assets/background.jpg);
+	background-position: 0;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
 
 .app {
 	display: flex;
@@ -6,12 +19,23 @@
 	width: 100%;
 }
 
+.app-title {
+	font-size: 48px;
+	margin-bottom: 0;
+	color: #EFDDBE;
+}
+
 .score-container {
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
 	gap: 256px;
 	width: 100%;
+}
+
+.score {
+	font-size: 32px;
+	color: #EFDDBE;
 }
 
 .card-container {

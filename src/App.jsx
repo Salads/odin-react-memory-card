@@ -50,10 +50,17 @@ function App() {
 
   }, []);
 
+  function resetHitCards() {
+    for(let cardData of cards) {
+        cardData.hit = false;
+      }
+  }
+
   function onCardClick(cardData) {
     if(cardData.hit) { // Game Over, Restart, Update Best Score
       setBestScore(Math.max(curScore, bestScore));
       setCurScore(0);
+      resetHitCards();
       randomizeCards();
       cardsLeft = MAX_CARDS;
     }
@@ -61,8 +68,11 @@ function App() {
       cardData.hit = true;
       cardsLeft--;
       if(cardsLeft === 0) { // Victory
-        setBestScore(Math.max(curScore, bestScore));
+        setBestScore(Math.max(curScore + 1, bestScore));
         setCurScore(0);
+        resetHitCards();
+        randomizeCards();
+        cardsLeft = MAX_CARDS;
       }
       else {
         setCurScore(curScore + 1);
@@ -73,7 +83,7 @@ function App() {
 
   return (
     <div className='app'>
-      <h1>Deadlock Memory Cards</h1>
+      <h1 className='app-title'>Deadlock Memory Cards</h1>
       <div className='score-container'>
         <p className='score'>Current Score: {curScore}</p>
         <p className='score'>Best Score: {bestScore}</p>
