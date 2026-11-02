@@ -9,7 +9,8 @@
 .score-container {
 	display: flex;
 	flex-direction: row;
-	justify-content: space-around;
+	justify-content: center;
+	gap: 256px;
 	width: 100%;
 }
 
