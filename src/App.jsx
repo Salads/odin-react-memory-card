@@ -13,7 +13,7 @@ function createCardData(imgSrc, title) {
 }
 
 function generateCard(cardData, handleClick) {
-  return <Card data={cardData} handleClick={() => handleClick(cardData)}></Card>
+  return <Card key={cardData.key} data-key={cardData.key} data={cardData} handleClick={() => handleClick(cardData)}></Card>
 }
 
 // NOTE(Salads): Left these out here to avoid a re-render when not needed.
@@ -25,6 +25,11 @@ function App() {
   const [cards, setCards] = useState([]);
   const [curScore, setCurScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
+
+  function randomizeCards() {
+    const sortedArray = cards.sort((a, b) => Math.random() - 0.5);
+    setCards([...sortedArray]);
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -47,10 +52,22 @@ function App() {
 
   function onCardClick(cardData) {
     if(cardData.hit) { // Game Over, Restart, Update Best Score
-
+      setBestScore(Math.max(curScore, bestScore));
+      setCurScore(0);
+      randomizeCards();
+      cardsLeft = MAX_CARDS;
     }
     else {
-
+      cardData.hit = true;
+      cardsLeft--;
+      if(cardsLeft === 0) { // Victory
+        setBestScore(Math.max(curScore, bestScore));
+        setCurScore(0);
+      }
+      else {
+        setCurScore(curScore + 1);
+        randomizeCards();
+      }
     }
   }
 
