@@ -37,7 +37,7 @@ function App() {
       const json = await response.json();
 
       let cardsData = [];
-      for(let i = 0; i < 6 && i < json.length; i++) {
+      for(let i = 0; i < MAX_CARDS && i < json.length; i++) {
         let heroData = json[i];
         let images = heroData.images;
         cardsData.push(createCardData(images.icon_hero_card, heroData.name));
